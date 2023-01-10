@@ -1,0 +1,41 @@
+html{
+    font-size: 62.5%;
+    font-family: roboto, sans-serif;
+}
+
+*, *::after, *::before{
+    font-size: inherit;
+    box-sizing: border-box;
+} 
+
+body{
+    font-size: 2rem;
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
+h1{
+    font-size: 5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.input-box{
+    width: 30rem;
+    margin: 0 auto;
+}
+
+#id_new_item{
+    max-width: 100%;
+    font-size: 2rem;
+}
+
+table{
+    width: 60rem;
+    margin: 4rem auto;
+}
+
+table td{
+    border-bottom: .1rem solid gray;
+    padding: 1rem 0;
+}
