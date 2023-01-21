@@ -3,13 +3,19 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
+import os
 
 MAX_WAIT = 10
 
 class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
+        my_env = os.environ.copy()
+        my_env["STAGING_SERVER"] = "165.22.8.89"
         self.browser = webdriver.Firefox(firefox_binary="C:\Program Files\Mozilla Firefox\\firefox.exe")
+        staging_server = my_env.get("STAGING_SERVER")
+        if staging_server:
+            self.live_server_url = "http://" + staging_server
 
     def tearDown(self):
         self.browser.quit()
