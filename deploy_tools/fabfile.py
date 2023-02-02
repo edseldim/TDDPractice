@@ -1,6 +1,7 @@
 import random
 from fabric.contrib.files import append, exists
 from fabric.api import cd, env, local, run
+from fabric.operations import sudo
 
 REPO_URL = "https://github.com/edseldim/TDDPractice.git"
 
@@ -45,12 +46,12 @@ def _update_database():
     run("./.venv/bin/python manage.py migrate --no-input")
 
 def _register_service():
-    run("cat ./deploy_tools/nginx.template.conf | sed 's/DOMAIN/165.22.8.89/g' | sudo tee /etc/nginx/sites-available/165.22.8.89")
-    run("sudo ln -s /etc/nginx/sites-available/165.22.8.89 /etc/nginx/sites-enabled/165.22.8.89")
-    run("cat ./deploy_tools/gunicorn-systemd.template.service \
+    sudo("cat ./deploy_tools/nginx.template.conf | sed 's/DOMAIN/165.22.8.89/g' | sudo tee /etc/nginx/sites-available/165.22.8.89")
+    sudo("ln -s /etc/nginx/sites-available/165.22.8.89 /etc/nginx/sites-enabled/165.22.8.89")
+    sudo("cat ./deploy_tools/gunicorn-systemd.template.service \
     | sed 's/DOMAIN/165.22.8.89/g' \
-    | sudo tee /etc/systemd/system/gunicorn-165.22.8.89.service")
-    run("sudo systemctl daemon-reload")
-    run("sudo systemctl nginx")
-    run("sudo systemctl enable gunicorn-165.22.8.89")
-    run("sudo systemctl start gunicorn-165.22.8.89")
+    | tee /etc/systemd/system/gunicorn-165.22.8.89.service")
+    sudo("systemctl daemon-reload")
+    sudo("systemctl reload nginx")
+    sudo("systemctl enable gunicorn-165.22.8.89")
+    sudo("systemctl start gunicorn-165.22.8.89")
