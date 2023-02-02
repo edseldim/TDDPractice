@@ -41,5 +41,4 @@ def _update_static_files():
     run("./.venv/bin/python manage.py collectstatic --no-input")
 
 def _update_database():
-    run("./.venv/bin/python manage.py makemigrations --no-input")
     run("./.venv/bin/python manage.py migrate --no-input")
