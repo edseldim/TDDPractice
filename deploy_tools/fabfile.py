@@ -42,3 +42,14 @@ def _update_static_files():
 
 def _update_database():
     run("./.venv/bin/python manage.py migrate --no-input")
+
+def _register_service():
+    run("cat ./deploy_tools/nginx.template.conf | sed 's/DOMAIN/165.22.8.89/g' | sudo tee /etc/nginx/sites-available/165.22.8.89")
+    run("sudo ln -s /etc/nginx/sites-available/165.22.8.89 /etc/nginx/sites-enabled/165.22.8.89")
+    run("cat ./deploy_tools/gunicorn-systemd.template.service \
+    | sed 's/DOMAIN/165.22.8.89/g' \
+    | sudo tee /etc/systemd/system/gunicorn-165.22.8.89.service")
+    run("sudo systemctl daemon-reload")
+    run("sudo systemctl nginx")
+    run("sudo systemctl enable gunicorn-165.22.8.89")
+    run("sudo systemctl start gunicorn-165.22.8.89")
