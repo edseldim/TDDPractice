@@ -24,7 +24,7 @@ def _get_latest_source():
 
 def _update_virtualenv():
     if not exists(".venv/bin/pip"):
-        run(f"python -m venv .venv")
+        run(f"/home/elaucho/.pyenv/shims/python -m venv .venv")
     run("./.venv/bin/python -m pip install -r requirements.txt")
 
 def _create_or_update_dotenv():
