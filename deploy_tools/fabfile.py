@@ -13,6 +13,7 @@ def deploy():
         _create_or_update_dotenv()
         _update_static_files()
         _update_database()
+        _register_service()
 
 def _get_latest_source():
     if exists(".git"):
