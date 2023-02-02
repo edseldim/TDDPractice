@@ -20,7 +20,7 @@ def _get_latest_source():
     else:
         run(f"git clone {REPO_URL} && cd {REPO_URL.split('/')[-1].split('.')[0]} && ls -ltra")
     current_commit = local("git log -n 1 --format=%H", capture=True)
-    run(f"git reset --hard {current_commit}")
+    run(f"ls -ltra && git reset --hard {current_commit}")
 
 def _update_virtualenv():
     if not exists(".venv/bin/pip"):
