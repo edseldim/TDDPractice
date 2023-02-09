@@ -16,9 +16,7 @@
     <h1>Your To-Do list</h1>
     <form method="POST" action="{% block form_action %} {% endblock %}">
         {% csrf_token %}
-        <div class="input-box">
-            <input id="id_new_item" placeholder="Enter a to-do item" name="item_text">
-        </div>
+        {{form.text}}
         {% if error %}
             <div class="form-group has_error">
                 <span class="help-block">{{ error }}</span>
